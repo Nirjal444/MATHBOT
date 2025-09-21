@@ -1,0 +1,30 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, "Helvetica Neue", Arial;
+  background: #f7f9fc;
+  margin: 0;
+  padding: 20px;
+}
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+.chat {
+  height: 400px;
+  overflow: auto;
+  border: 1px solid #eee;
+  padding: 12px;
+  border-radius: 6px;
+  background: #fafcff;
+}
+.message { margin: 8px 0; }
+.message.user { text-align: right; }
+.message.assistant { text-align: left; }
+.controls { display:flex; gap:8px; margin-top:12px; }
+input#textInput { flex: 1; padding:8px 10px; border-radius:6px; border:1px solid #ddd; }
+button { padding:8px 12px; border-radius:6px; border: none; background:#2563eb; color:white; cursor:pointer }
+button#startBtn { background: #10b981 }
+.status { margin-top:8px; color:#666 }
