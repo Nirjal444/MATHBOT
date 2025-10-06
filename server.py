@@ -2,6 +2,8 @@ import os
 import asyncio
 import json
 from typing import Any
+import logging
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.staticfiles import StaticFiles
@@ -38,7 +40,24 @@ if OpenAIClient is not None:
         client = None
 
 
-app = FastAPI()
+# Configure a simple logger and emit startup info so you can verify env vars
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("mathbot.server")
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup
+    # Don't print the secret itself; just indicate whether it is present
+    key_present = bool(OPENAI_API_KEY)
+    logger.info(f"OPENAI_API_KEY present: {key_present}")
+    logger.info(f"OPENAI_MODEL: {OPENAI_MODEL}")
+    logger.info(f"USE_MOCK: {USE_MOCK}")
+    yield
+    # Shutdown (if needed)
+
+
+app = FastAPI(lifespan=lifespan)
 
 # Serve the static frontend
 app.mount("/static", StaticFiles(directory="./static"), name="static")
